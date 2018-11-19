@@ -27,9 +27,10 @@ class Intelli {
 
   void draw() {
 
-    strokeWeight(1);
+    /*strokeWeight(1);
     stroke(255);
     point(posX, posY);
+    */
     posX+=cos(radians(angle))*stepSize;
     posY+=sin(radians(angle))*stepSize;
 
@@ -39,34 +40,32 @@ class Intelli {
       reachBorder=true;
       direction=south;
       posY=stepSize;
-      posX+=random(-2,2);
     }
     if (posX>=width-stepSize) {
       reachBorder=true;
       direction=west;
       posX=width-stepSize;
-      posY+=random(-2,2);
     }
     if (posY>=height-stepSize) {
       reachBorder=true;
       direction=norse;
       posY=height-stepSize;
-      posX+=random(-2,2);
     }
     if (posX<=stepSize) {
       reachBorder=true;
       direction=east;
       posX=stepSize;
-      posY=random(-2,2);
     }
 
     int px=(int)posX;
     int py=(int)posY;
-    if (get(px, py)==color(255)||reachBorder) {
+    if (get(px, py)!=color(0)||reachBorder) {
       angle=getRandomAngle(direction);
       distance=dist(posX, posY, posXcross, posYcross);
-      strokeWeight(distance/dWeight);
       stroke(hue, 80, 80, 100);
+      strokeWeight(distance/dWeight);
+      line(posX, posY, posXcross, posYcross);
+      strokeWeight(distance/dWeight/2);
       line(posX, posY, posXcross, posYcross);
       posXcross=posX;
       posYcross=posY;
@@ -79,7 +78,7 @@ class Intelli {
     float a = (floor(random(-angleCount, angleCount)) + 0.5) * 90.0/angleCount;
 
     if (dir==norse) {
-      return(90-a);
+      return(a-90);
     }
     if (dir==east) {
       return a;
